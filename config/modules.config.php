@@ -22,5 +22,5 @@ return array(
     'ZF\\Rpc',
     'ZF\\Versioning',
     'Budget',
-    'Model'
+    'Models'
 );

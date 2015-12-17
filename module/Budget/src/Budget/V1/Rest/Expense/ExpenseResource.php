@@ -3,6 +3,10 @@ namespace Budget\V1\Rest\Expense;
 
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
+use Models\Model\Expense as ExpenseModel;
+use Models\Mapper\Expense as ExpenseMapper;
+use Zend\Stdlib\Hydrator\ArraySerializable;
+
 
 class ExpenseResource extends AbstractResourceListener
 {
@@ -14,7 +18,13 @@ class ExpenseResource extends AbstractResourceListener
      */
     public function create($data)
     {
-        return new ApiProblem(405, 'The POST method has not been defined');
+        $expense = new ExpenseModel();
+        $expense->setExpenseMapper(new ExpenseMapper());
+        $expense->amount = $data->amount;
+        $expense->save();
+        
+        $hydrator = new ArraySerializable();
+        return $hydrator->hydrate($hydrator->extract($expense), new ExpenseEntity());
     }
 
     /**
@@ -47,7 +57,9 @@ class ExpenseResource extends AbstractResourceListener
      */
     public function fetch($id)
     {
-        return new ApiProblem(405, 'The GET method has not been defined for individual resources');
+        $entity = new ExpenseEntity();
+        $entity->id = $id;
+        return $entity;
     }
 
     /**

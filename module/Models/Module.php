@@ -1,5 +1,5 @@
 <?php
-namespace Model;
+namespace Models;
 
 class Module
 {
@@ -13,7 +13,7 @@ class Module
         return array(
             'ZF\Apigility\Autoloader' => array(
                 'namespaces' => array(
-                    __NAMESPACE__ => __DIR__,
+                    __NAMESPACE__ => __DIR__ . '/src/Models',
                 ),
             ),
         );
